@@ -38,21 +38,26 @@ class BinarySearch(list):
         last = len(self.created_list) - 1
         found = False
         counter = 0
+        if not self.created_list:
+            return "invalid input"
+        elif find not in self.created_list:
+            return {'count': counter, 'index': -1 }
         
         while first <= last and not found:
-            counter += 1
             midpoint = (first + last) // 2
-            if self.created_list[midpoint] == find:
-                result_dict['count'] = counter
-                result_dict['index'] = self.created_list.index(find)
-                return result_dict
+            if self.created_list[midpoint] == find or self.created_list[first] ==\
+            find or self.created_list[last] == find: 
+                found = True
+            
             else:
                 if find < self.created_list[midpoint]:
                     last = midpoint - 1
+                    counter += 1
                 else:
                     first = midpoint + 1
+                    counter += 1
         
-        result_dict['count'] = counter
-        result_dict['index'] = -1
-        return result_dict
     
+        return {'count': counter, 'index': self.created_list.index(find)}
+    
+print BinarySearch(20, 2).search(40)
