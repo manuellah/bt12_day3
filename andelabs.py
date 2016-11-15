@@ -15,10 +15,15 @@ def find_missing(list1, list2):
     return set_difference[0]
 
 
-class BinarySearch():
+class BinarySearch(list):
     def __init__(self, a, b):
-        self.length = a
-        self.created_list = self.create_list(a, b)
+        try:
+            self.length = a
+            self.created_list = self.create_list(a, b)
+            list.__init__(self, self.created_list)
+        except TypeError:
+            self.created_list = []
+            list.__init__(self, self.created_list)
         
     def create_list(self, a, b):
         my_list = [b]
@@ -27,12 +32,12 @@ class BinarySearch():
         return my_list
     
     def search(self, find):
+        find = int(find)
         result_dict = {}
         first = 0
         last = len(self.created_list) - 1
         found = False
         counter = 0
-        find = int(find)
         
         while first <= last and not found:
             counter += 1
@@ -47,7 +52,7 @@ class BinarySearch():
                 else:
                     first = midpoint + 1
         
-        result_dict['count'] = 3
+        result_dict['count'] = counter
         result_dict['index'] = -1
         return result_dict
     
